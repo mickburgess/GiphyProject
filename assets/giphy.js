@@ -61,10 +61,32 @@ function displayGiphy() {
   })
   .then(function(response) {
     console.log(response);
+    // storing response
+    var results = response.data;
+    // looping over response to create divs to display response
+    for (var j = 0; j < results.length; j++) {
+      // create and storing divs
+      var giphyDiv = $("<div>");
+      // create a p tag that contains the rating text for each artist
+      var rating = $("<p>").text("Rating: " + results[j].rating);
+      console.log("rating", rating);
+      // create an image tag to hold our giphy
+      var giphyImg = $("<img>");
+      // add an image source
+      giphyImg.attr("src", results[j].images.fixed_height_still.url);
+      console.log("giphyImg", giphyImg);
+      // add the rating and image to the giphyDiv
+      giphyDiv.append(rating);
+      giphyDiv.append(giphyImg);
+      // add giphyDiv below the buttons
+      $("#artist").prepend(giphyDiv);
+
+    }
   })
 }
-$(document).on("click", ".artist", displayGiphy);
+
 renderButtons();
 
+$(document).on("click", ".artist", displayGiphy);
 
 });
