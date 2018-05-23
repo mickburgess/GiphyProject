@@ -14,11 +14,12 @@ $(document).ready(function() {
   ]
 
 var queryURL = "https://api.giphy.com/v1/gifs/search?";
+var giphyStillArray = [];
+var giphyActiveArray = [];
 
 function renderButtons() {
   // clears the div before adding buttons, so you don't get duplicates
   $("#artistButtons").empty();
-  
   // for loop that creates a button for each item in the array
   for (var i = 0; i < topics.length; i++) {
     // create buttons with Jquery
@@ -55,6 +56,10 @@ function displayGiphy() {
   var queryURL = apiURL + $.param(queryParams);
   console.log(queryURL);
 
+  $("#artist").empty();
+  giphyStillArray = [];
+  giphyActiveArray = [];
+
   $.ajax({
     url: queryURL,
     method: "GET"
@@ -72,15 +77,22 @@ function displayGiphy() {
       console.log("rating", rating);
       // create an image tag to hold our giphy
       var giphyImg = $("<img>");
-      // add an image source
-      giphyImg.attr("src", results[j].images.fixed_height_still.url);
-      console.log("giphyImg", giphyImg);
+      // store still images for each giphy
+      var giphyStill = results[j].images.fixed_height_still.url;
+      // push the images to a still array
+      giphyStillArray.push(giphyStill);
+      // store active images for each giphy
+      var giphyActive = results[j].images.fixed_height.url;
+      // push the active images to an active array
+      giphyActiveArray.push(giphyActive);
+      // add each still image to a img tag
+      giphyImg.attr("src", giphyStill);
+      console.log("giphystill", giphyStillArray);
       // add the rating and image to the giphyDiv
       giphyDiv.append(rating);
       giphyDiv.append(giphyImg);
       // add giphyDiv below the buttons
       $("#artist").prepend(giphyDiv);
-
     }
   })
 }
