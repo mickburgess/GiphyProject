@@ -14,8 +14,6 @@ $(document).ready(function() {
   ]
 
 var queryURL = "https://api.giphy.com/v1/gifs/search?";
-var giphyStillArray = [];
-var giphyActiveArray = [];
 
 function renderButtons() {
   // clears the div before adding buttons, so you don't get duplicates
@@ -32,7 +30,7 @@ function renderButtons() {
     // append the new buttons to the food button div
     $("#artistButtons").append(artistButton);
   }
-}
+};
 
 function displayGiphy() {
   var giphy = $(this).attr("data-name");
@@ -57,8 +55,6 @@ function displayGiphy() {
   console.log(queryURL);
 
   $("#artist").empty();
-  giphyStillArray = [];
-  giphyActiveArray = [];
 
   $.ajax({
     url: queryURL,
@@ -74,31 +70,47 @@ function displayGiphy() {
       var giphyDiv = $("<div>");
       // create a p tag that contains the rating text for each artist
       var rating = $("<p>").text("Rating: " + results[j].rating);
-      console.log("rating", rating);
       // create an image tag to hold our giphy
-      var giphyImg = $("<img>");
+      var giphyImg = $("<img>").addClass("images");
       // store still images for each giphy
       var giphyStill = results[j].images.fixed_height_still.url;
-      // push the images to a still array
-      giphyStillArray.push(giphyStill);
+      // add giphyStill as an attribute
+      giphyImg.attr("giphystill", giphyStill);
       // store active images for each giphy
       var giphyActive = results[j].images.fixed_height.url;
-      // push the active images to an active array
-      giphyActiveArray.push(giphyActive);
+      // add giphyActive as an attribute
+      giphyImg.attr("giphyactive", giphyActive);
+      // add attribute that can be switched depending on if image is moving or not
+      giphyImg.attr("giphy-state", "still");
       // add each still image to a img tag
       giphyImg.attr("src", giphyStill);
-      console.log("giphystill", giphyStillArray);
       // add the rating and image to the giphyDiv
       giphyDiv.append(rating);
       giphyDiv.append(giphyImg);
       // add giphyDiv below the buttons
       $("#artist").prepend(giphyDiv);
-    }
-  })
-}
+    };
+  });
+};
+
+$(document).on("click", ".images", function() {
+  var state = $(this).attr("giphy-state");
+  console.log(state);
+  var active = $(this).attr("giphyActive");
+  var still = $(this).attr("giphyStill");
+  
+  if (state === "still") {
+    $(this).attr("src", active);
+    $(this).attr("giphy-state", "active");
+  }
+  else {
+    $(this).attr("src", still);
+    $(this).attr("giphy-state", "still");
+  }
+  console.log(giphyImg);
+});
 
 renderButtons();
 
 $(document).on("click", ".artist", displayGiphy);
-
 });
