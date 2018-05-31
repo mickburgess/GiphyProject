@@ -7,14 +7,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
   <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans" rel="stylesheet">
+
   </head>
 <body>
-  <div id="artistButtons"></div>
-  
-  
-  
-  
-  <div id="artist"></div>
+  <div id="wrapper">
+    <div id="artistButtons">
+    </div>
+    
+    <form id="artist-form">
+      <label for="artist-input">Add an artist</label><br><br>
+      <input type="text" id="artist-input"><br>
+
+      <input id="addArtist" type="submit" value="Submit">
+    </form>
+    
+    <div class="container" id="artist">
+    </div>
+  </div>
+  <footer>
+      Copyright &copy;
+  </footer>
 
   <script
   src="https://code.jquery.com/jquery-3.3.1.js"
