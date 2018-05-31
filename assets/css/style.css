@@ -1,3 +1,55 @@
+body {
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
+button,
+#addArtist {
+  color: #ffffff;
+  background-color: #10b397;
+}
+
+label {
+  font-weight: bold;
+}
+
+footer{
+  clear: both;
+  text-align: center;
+  padding: .8rem;
+  margin: .5rem;
+}
+
 .artist {
   margin: .8rem;
+}
+
+.giphyDiv {
+  width: 33%;
+  float: left;
+  text-align: center;
+}
+ 
+.container {
+  float: left;
+}
+
+.images {
+  margin: 1rem;
+}
+
+#artist-form {
+  float: right;
+  width: 20%;
+}
+
+#addArtist {
+  margin-top: .5rem;
+}
+
+#wrapper {
+  min-height: calc(100vh - 40px);
+}
+
+#artist {
+  width: 75%;
 }
